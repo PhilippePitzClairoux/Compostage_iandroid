@@ -13,6 +13,25 @@ public class RaspberryPi {
         this.arrSensor = new ArrayList<>();
     }
 
+    public RaspberryPi(int id, int userId){
+        this.setId(id);
+        this.setUserId(userId);
+        this.arrSensor = new ArrayList<>();
+    }
+
+    public RaspberryPi(int id, int userId, String type, String acqui, String capacity){
+        this.setId(id);
+        this.setUserId(userId);
+        this.setType(type);
+        this.setAcquisitionDate(acqui);
+        this.setCapacity(capacity);
+        this.arrSensor = new ArrayList<>();
+    }
+
+    public void addSensor(Sensor sensor){
+        this.getArrSensor().add(sensor);
+    }
+
     private int id;
     private int userId;
     private String type;
