@@ -1,9 +1,11 @@
 package com.compostage;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,22 @@ public class StatsActivity extends AppCompatActivity {
         String rTemp[];
         String rHumidity[];
         String rPh[];
+        String phColor[] = {
+                "#ffffff",
+                "#aa0000",
+                "#ff2322",
+                "#f96352",
+                "#c15613",
+                "#f99e3b",
+                "#ffe500",
+                "#3bb200",
+                "#5dccae",
+                "#32abd6",
+                "#a23bd6",
+                "#4a78db",
+                "#141fba",
+                "#701ca0",
+                "#63007a"};
 
         MyAdapter (Context c, String zone[], String bed[], String temp[], String humidity[], String ph[]){
             super(c,R.layout.row, R.id.zone, bed);
@@ -71,12 +89,16 @@ public class StatsActivity extends AppCompatActivity {
             TextView temp = row.findViewById(R.id.temp);
             TextView hum = row.findViewById(R.id.humidity);
             TextView ph = row.findViewById(R.id.ph);
+            TextView space = row.findViewById(R.id.space);
 
             zone.setText(rZone[position]);
             bed.setText(rBed[position]);
             temp.setText(rTemp[position]);
             hum.setText(rHumidity[position]);
             ph.setText(rPh[position]);
+            space.setBackgroundColor(Color.parseColor(phColor[Integer.parseInt(rPh[position])]));
+
+
 
             return row;
         }
