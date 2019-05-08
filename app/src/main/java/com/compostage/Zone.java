@@ -1,8 +1,13 @@
 package com.compostage;
 
+import android.hardware.Sensor;
+
+import java.util.ArrayList;
+
 public class Zone {
     public Zone(){
-
+        this.raspberryPi = null;
+        this.name = "";
     }
 
     public Zone(int id, String name){
@@ -26,6 +31,8 @@ public class Zone {
     private int bedId;
     private String name;
 
+    private RaspberryPi raspberryPi;
+
     public int getId() {
         return id;
     }
@@ -48,5 +55,13 @@ public class Zone {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public RaspberryPi getRaspberryPi() {
+        return raspberryPi;
+    }
+
+    public void setRaspberryPi(RaspberryPi raspberryPi) {
+        this.raspberryPi = raspberryPi;
     }
 }

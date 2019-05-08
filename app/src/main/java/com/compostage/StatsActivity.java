@@ -23,6 +23,7 @@ public class StatsActivity extends AppCompatActivity {
     ListView listView;
 
     public StatsActivity(){
+        //Ajout manuel de Zone
         Zone z = new Zone(1,"Zone D");
         zone.add(z);
         z = new Zone(2,"Zone GG");
