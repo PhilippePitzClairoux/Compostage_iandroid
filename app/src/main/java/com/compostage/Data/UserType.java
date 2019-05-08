@@ -4,9 +4,18 @@ class UserType implements IDataBase {
 
     private String userTypeName;
     private String userTypeDescription;
+    private UserPermissions[] userPermissions;
 
     public UserType(String userTypeName) {
         this.userTypeName = userTypeName;
+    }
+
+    public UserPermissions[] getUserPermissions() {
+        return userPermissions;
+    }
+
+    public void setUserPermissions(UserPermissions[] userPermissions) {
+        this.userPermissions = userPermissions;
     }
 
     public String getUserTypeName() {
