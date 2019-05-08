@@ -1,7 +1,7 @@
 package com.compostage;
 
-public class Sensor {
-    public Sensor(){
+public class RaspSensor {
+    public RaspSensor(){
         this.setType("");
         this.setState("");
         this.setAcquisitionDate("");
@@ -9,7 +9,7 @@ public class Sensor {
         this.setMeasure(null);
     }
 
-    public Sensor(int id){
+    public RaspSensor(int id){
         this.setId(id);
         this.setType("");
         this.setState("");
@@ -18,7 +18,7 @@ public class Sensor {
         this.setMeasure(null);
     }
 
-    public Sensor(int id, SensorMeasure measure){
+    public RaspSensor(int id, SensorMeasure measure){
         this.setId(id);
         this.setType("");
         this.setState("");
@@ -27,7 +27,7 @@ public class Sensor {
         this.setMeasure(measure);
     }
 
-    public Sensor(int id, String type, String state, String acquisitionDate, String serial, SensorMeasure measure){
+    public RaspSensor(int id, String type, String state, String acquisitionDate, String serial, SensorMeasure measure){
         this.setId(id);
         this.setType(type);
         this.setState(state);

@@ -28,7 +28,7 @@ public class RaspberryPi {
         this.arrSensor = new ArrayList<>();
     }
 
-    public void addSensor(Sensor sensor){
+    public void addSensor(RaspSensor sensor){
         this.getArrSensor().add(sensor);
     }
 
@@ -37,7 +37,7 @@ public class RaspberryPi {
     private String type;
     private String acquisitionDate;
     private String capacity;
-    private ArrayList<Sensor> arrSensor;
+    private ArrayList<RaspSensor> arrSensor;
 
     public int getId() {
         return id;
@@ -79,11 +79,11 @@ public class RaspberryPi {
         this.capacity = capacity;
     }
 
-    public ArrayList<Sensor> getArrSensor() {
+    public ArrayList<RaspSensor> getArrSensor() {
         return arrSensor;
     }
 
-    public void setArrSensor(ArrayList<Sensor> arrSensor) {
+    public void setArrSensor(ArrayList<RaspSensor> arrSensor) {
         this.arrSensor = arrSensor;
     }
 }

@@ -21,17 +21,17 @@ public class Zone {
         this.setName(name);
     }
 
-    @Override
-    public String toString()
-    {
-        return this.getName();
-    }
-
     private int id;
     private int bedId;
     private String name;
 
     private RaspberryPi raspberryPi;
+
+    @Override
+    public String toString()
+    {
+        return this.getName();
+    }
 
     public int getId() {
         return id;

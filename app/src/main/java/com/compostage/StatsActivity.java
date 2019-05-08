@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +23,31 @@ public class StatsActivity extends AppCompatActivity {
 
     public StatsActivity(){
         //Ajout manuel de Zone
-        Zone z = new Zone(1,"Zone D");
+        SensorMeasure measureTemp = new SensorMeasure(32f);
+        SensorMeasure measureHum = new SensorMeasure(50f);
+        SensorMeasure measurePh = new SensorMeasure(7f);
+
+        RaspSensor raspSensorTemp = new RaspSensor(1,measureTemp);
+        RaspSensor raspSensorHum = new RaspSensor(1,measureHum);
+        RaspSensor raspSensorPh = new RaspSensor(1,measurePh);
+
+        RaspberryPi raspberryPi = new RaspberryPi(1,1);
+
+        raspberryPi.addSensor(raspSensorTemp);
+        raspberryPi.addSensor(raspSensorHum);
+        raspberryPi.addSensor(raspSensorPh);
+
+        Zone z = new Zone(1,"Zone A");
+
+        z.setRaspberryPi(raspberryPi);
+
         zone.add(z);
-        z = new Zone(2,"Zone GG");
+
+        z = new Zone(2,"Zone B");
         zone.add(z);
         z = new Zone(1,"Zone C");
         zone.add(z);
+
     }
 
     public ArrayList<Zone> zone = new ArrayList<>();
