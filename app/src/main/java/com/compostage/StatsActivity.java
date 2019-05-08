@@ -16,10 +16,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class StatsActivity extends AppCompatActivity {
 
     ListView listView;
-    String zone[] = {"Zone A", "Zone B", "Zone C"};
+
+    public StatsActivity(){
+        Zone z = new Zone(1,"Zone D");
+        zone.add(z);
+        z = new Zone(2,"Zone GG");
+        zone.add(z);
+        z = new Zone(1,"Zone C");
+        zone.add(z);
+    }
+
+    public ArrayList<Zone> zone = new ArrayList<>();
+
+    //String zone[] = {"Zone A", "Zone B", "Zone C"};
     String bed[] = {"Bed A", "Bed B", "Bed C"};
     String temp[] = {"32C", "22C", "45C"};
     String humidity[] = {"50%", "25%", "33%"};
@@ -47,7 +61,7 @@ public class StatsActivity extends AppCompatActivity {
 
     class MyAdapter extends ArrayAdapter<String>{
         Context context;
-        String rZone[];
+        ArrayList<Zone> rZone;
         String rBed[];
         String rTemp[];
         String rHumidity[];
@@ -69,10 +83,10 @@ public class StatsActivity extends AppCompatActivity {
                 "#701ca0",
                 "#63007a"};
 
-        MyAdapter (Context c, String zone[], String bed[], String temp[], String humidity[], String ph[]){
+        MyAdapter (Context c, ArrayList<Zone> zone, String bed[], String temp[], String humidity[], String ph[]){
             super(c,R.layout.row, R.id.zone, bed);
             this.context = c;
-            this.rZone = zone;
+            this.rZone = new ArrayList<>(zone);
             this.rBed = bed;
             this.rTemp = temp;
             this.rHumidity = humidity;
@@ -91,14 +105,12 @@ public class StatsActivity extends AppCompatActivity {
             TextView ph = row.findViewById(R.id.ph);
             TextView space = row.findViewById(R.id.space);
 
-            zone.setText(rZone[position]);
+            zone.setText(rZone.get(position).getName());
             bed.setText(rBed[position]);
             temp.setText(rTemp[position]);
             hum.setText(rHumidity[position]);
             ph.setText(rPh[position]);
             space.setBackgroundColor(Color.parseColor(phColor[Integer.parseInt(rPh[position])]));
-
-
 
             return row;
         }
