@@ -67,15 +67,6 @@ public class StatsActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(this, zone, bed, temp, humidity, ph);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    Toast.makeText(StatsActivity.this, "aa", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     class MyAdapter extends ArrayAdapter<String>{
