@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class RaspberryPi {
 
     public RaspberryPi(){
+        this.setId(0);
+        this.setUserId(0);
         this.type = "";
         this.acquisitionDate = "";
         this.capacity = "";

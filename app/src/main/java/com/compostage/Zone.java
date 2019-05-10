@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Zone {
     public Zone(){
-        this.setRaspberryPi(null)
+        this.setRaspberryPi(null);
         this.setName("");
         this.setBedName("");
     }
@@ -27,6 +27,16 @@ public class Zone {
         this.setBedId(bedId);
         this.setName(name);
         this.setBedName(bedName);
+    }
+
+    public Float getTemp(){
+        return this.getRaspberryPi().getArrSensor().get(0).getMeasure().getValue();
+    }
+    public Float getHum(){
+        return this.getRaspberryPi().getArrSensor().get(1).getMeasure().getValue();
+    }
+    public Float getPh(){
+        return this.getRaspberryPi().getArrSensor().get(2).getMeasure().getValue();
     }
 
     private int id;
