@@ -44,28 +44,29 @@ public class MainActivity extends AppCompatActivity {
                 String url = String.format(VALIDATE_USERNAME, username);
 
 
-                if (!username.equals("Username") || !username.isEmpty() || !password.isEmpty()) {
+                if (!username.isEmpty() && !password.isEmpty()) {
                     try {
 
                         JsonParser ans = new JsonParser(new HttpRequester(url).processRequest());
                         url = String.format(VALIDATE_PASSWORD, password, ans.getField("user_password"));
 
-                        System.out.println("New url : " + url);
-
                         String passValidation = new HttpRequester(url).processRequest();
                         JsonParser passwordIsValid = new JsonParser(passValidation);
 
                         if (passwordIsValid.getField("isValid").equals("true")) {
-                            System.out.println("VALID LOGIN! WELCOME!!!");
+                            Toast.makeText(MainActivity.this, "WELCOME!",
+                                    Toast.LENGTH_LONG).show();
                         } else {
-                            reset_interface();
+                            invalid_password();
+                            reset_password();
                         }
 
                     } catch (JSONException e) {
 
                         Toast.makeText(MainActivity.this, "Invalid username/password",
                                 Toast.LENGTH_LONG).show();
-                        reset_interface();
+                        reset_username();
+                        reset_password();
                         findViewById(R.id.username).requestFocus();
 
                     } catch (IOException e) {
@@ -77,29 +78,33 @@ public class MainActivity extends AppCompatActivity {
 
                     if (username.isEmpty()) {
                         invalid_username();
+                        reset_username();
                     } else {
                         invalid_password();
+                        reset_password();
                     }
-
-                    reset_interface();
                 }
             }
         });
     }
 
-    public void reset_interface() {
-
+    public void reset_username() {
         ((EditText) findViewById(R.id.username)).getText().clear();
+    }
+
+    public void reset_password() {
         ((EditText) findViewById(R.id.password)).getText().clear();
     }
 
     public void invalid_password() {
+        ((EditText) findViewById(R.id.password)).getText().clear();
         findViewById(R.id.password).requestFocus();
         Toast.makeText(MainActivity.this, "Invalid password",
                 Toast.LENGTH_LONG).show();
     }
 
     public void invalid_username() {
+        ((EditText) findViewById(R.id.username)).getText().clear();
         findViewById(R.id.username).requestFocus();
         Toast.makeText(MainActivity.this, "Invalid username",
                 Toast.LENGTH_LONG).show();
