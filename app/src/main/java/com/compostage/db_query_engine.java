@@ -132,17 +132,17 @@ public class db_query_engine extends SQLiteOpenHelper{
 
     // Table Create Statements
     // Permissions table - create statement
-    private static final String CREATE_TABLE_PERMISSIONS = "CREATE TABLE "+ TABLE_PERMISSIONS+
+    private static final String CREATE_PERMISSIONS = "CREATE TABLE "+ TABLE_PERMISSIONS+
             "("+KEY_PERMISSION_NAME+" VARCHAR(64) NOT NULL PRIMARY KEY ," +
             KEY_PERMISSION_DESCRIPTION +" VARCHAR(512) NOT NULL)";
 
     // User type table - create statement
-    private static final String CREATE_TABLE_USER_TYPE = "CREATE TABLE "+TABLE_USER_TYPE+" (" +
+    private static final String CREATE_USER_TYPE = "CREATE TABLE "+TABLE_USER_TYPE+" (" +
             KEY_USER_TYPE_NAME+ " VARCHAR(64) NOT NULL PRIMARY KEY , " +
             KEY_USER_TYPE_DESCRIPTION+" VARCHAR(256))";
 
     // Users table - create statement
-    private static final String CREATE_TABLE_USERS = "CREATE TABLE "+ TABLE_USERS +
+    private static final String CREATE_USERS = "CREATE TABLE "+ TABLE_USERS +
             " ( "+KEY_USERNAME+" VARCHAR(64) NOT NULL PRIMARY KEY, "+KEY_USER_TYPE_ID+
             " VARCHAR(64) NOT NULL, "+KEY_PASSWORD+" VARCHAR(255) NOT NULL, " + KEY_EMAIL+
             " VARCHAR(64) NOT NULL, "+KEY_AUTH_QUESTION+" VARCHAR(1024) NOT NULL, "+KEY_AUTH_ANSWER+
@@ -169,7 +169,7 @@ public class db_query_engine extends SQLiteOpenHelper{
             KEY_UPDATE_ID+ " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             KEY_UPDATE_STATE_ID +" INTEGER NOT NULL, " +
             KEY_UPDATE_NAME+ " VARCHAR(64) NOT NULL, " +
-            KEY_UPDATE_DATE +"DATETIME NOT NULL, " +
+            KEY_UPDATE_DATE +" DATETIME NOT NULL, " +
             "CONSTRAINT update_ibfk_1 FOREIGN KEY("+KEY_UPDATE_STATE_ID+") REFERENCES "+TABLE_UPDATE_STATE+"("+KEY_UPDATE_STATE_ID+"))";
 
     // raspberry_pi_type table - create statement
@@ -193,8 +193,8 @@ public class db_query_engine extends SQLiteOpenHelper{
     private static final String CREATE_ALERT_CONFIGURATION="CREATE TABLE "+TABLE_ALERT_CONFIGURATION+"( "+
             KEY_ALERT_CONFIGURATION_ID +" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "+
             KEY_ALERT_CONFIGURATION_MESSAGE +" VARCHAR(64) NOT NULL, "+
-            KEY_ALERT_CONFIGURATION_MIN_VALUE +"FLOAT, "+
-            KEY_ALERT_CONFIGURATION_MAX_VALUE +"FLOAT)";
+            KEY_ALERT_CONFIGURATION_MIN_VALUE +" FLOAT, "+
+            KEY_ALERT_CONFIGURATION_MAX_VALUE +" FLOAT)";
 
     //sensor_state - create statement
     private static final String CREATE_SENSOR_STATE="CREATE TABLE "+TABLE_SENSOR_STATE +"( " +
@@ -282,11 +282,56 @@ public class db_query_engine extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
     }
 
+    public String getTablePermissions() {
+        return TABLE_PERMISSIONS;
+    }
+    public String getTableUserType() {
+        return TABLE_USER_TYPE;
+    }
+    public String getTableUsers() {
+        return TABLE_USERS;
+    }
+    public String getTableBed() {
+        return TABLE_BED;
+    }
+    public String getTableZone() {
+        return TABLE_ZONE;
+    }
+    public String getTableUpdateState() {
+        return TABLE_UPDATE_STATE;
+    }
+    public String getTableUpdate() {
+        return TABLE_UPDATE;
+    }
+    public String getTableRaspberryPiType() {
+        return TABLE_RASPBERRY_PI_TYPE;
+    }
+    public String getTableRaspberryPi() {
+        return TABLE_RASPBERRY_PI;
+    }
+    public String getTableAlertConfiguration() {
+        return TABLE_ALERT_CONFIGURATION;
+    }
+    public String getTableSensorState() {
+        return TABLE_SENSOR_STATE;
+    }
+    public String getTableSensorType() { return TABLE_SENSOR_TYPE; }
+    public String getTableAlertType() { return TABLE_ALERT_TYPE; }
+    public String getTableMeasureType() { return TABLE_MEASURE_TYPE; }
+    public String getTableSensor() { return TABLE_SENSOR; }
+    public String getTableMeasures() { return TABLE_MEASURES; }
+    public String getTableTaAlertEvent() { return TABLE_TA_ALERT_EVENT; }
+    public String getTableTaSensorAlerts() { return TABLE_TA_SENSOR_ALERTS; }
+    public String getTableTaMeasureType() { return TABLE_TA_MEASURE_TYPE; }
+    public String getTableUpdateCompleted() { return TABLE_UPDATE_COMPLETED; }
+    public String getTableTaUsersPermissions() { return TABLE_TA_USERS_PERMISSIONS; }
+
+
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL(CREATE_TABLE_PERMISSIONS);
-        db.execSQL(CREATE_TABLE_USER_TYPE);
-        db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_PERMISSIONS);
+        db.execSQL(CREATE_USER_TYPE);
+        db.execSQL(CREATE_USERS);
         db.execSQL(CREATE_BED);
         db.execSQL(CREATE_ZONE);
         db.execSQL(CREATE_UPDATE_STATE);
@@ -312,6 +357,29 @@ public class db_query_engine extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TA_USERS_PERMISSIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPDATE_COMPLETED);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TA_MEASURE_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TA_SENSOR_ALERTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TA_ALERT_EVENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEASURES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENSOR);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MEASURE_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALERT_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENSOR_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SENSOR_STATE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALERT_CONFIGURATION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RASPBERRY_PI);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RASPBERRY_PI_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPDATE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPDATE_STATE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ZONE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BED);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_TYPE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERMISSIONS);
+
+        onCreate(db);
     }
 
 
