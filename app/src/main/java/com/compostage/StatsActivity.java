@@ -40,6 +40,7 @@ public class StatsActivity extends AppCompatActivity {
         Zone z = new Zone(1,"Zone A");
 
         z.setRaspberryPi(raspberryPi);
+        z.
 
         zone.add(z);
 
@@ -114,6 +115,10 @@ public class StatsActivity extends AppCompatActivity {
             TextView hum = row.findViewById(R.id.humidity);
             TextView ph = row.findViewById(R.id.ph);
             TextView space = row.findViewById(R.id.space);
+            TextView raspId = row.findViewById(R.id.raspId);
+            TextView userId = row.findViewById(R.id.userId);
+            TextView capacity = row.findViewById(R.id.capacity);
+            TextView date = row.findViewById(R.id.raspDate);
 
             zone.setText(rZone.get(position).getName());
             bed.setText(rBed[position]);
