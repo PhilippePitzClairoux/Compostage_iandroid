@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">compostage</string>
+    <string name="username">Username :</string>
+    <string name="password">Password :</string>
+    <string name="userType">Type :</string>
+    <string name="email">E-mail :</string>
+    <string name="question">Question :</string>
+    <string name="answer">Answer :</string>
+    <string name="info">Account informations</string>
+    <string name="cancel">Cancel</string>
+    <string name="modify">modify</string>
+    <string name="save">Save changes</string>
 </resources>
