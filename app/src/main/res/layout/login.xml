@@ -9,35 +9,35 @@
     <LinearLayout
         android:layout_width="418dp"
         android:layout_height="262dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592">
+        app:layout_constraintVertical_bias="0.51">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Username" />
+            android:hint="Username"
+            android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:ems="10"
-            android:hint="Input password"
+            android:hint="Password"
             android:inputType="textPassword" />
 
         <LinearLayout
@@ -54,9 +54,9 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/forgot_pass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:text="Forgot password" />
 
@@ -66,14 +66,13 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:text="Login" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Login" />
 
         </LinearLayout>
     </LinearLayout>
