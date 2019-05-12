@@ -9,6 +9,9 @@ public class User implements IDataBase {
     private String authquestion;
     private String authanswer;
 
+    private final String FETCH_USER_INFO = "";
+    private final String SYNC_USER_INFO = "";
+
 
     public User(String username) {
         this.username = username;
