@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -61,6 +62,7 @@ public class StatsActivity extends AppCompatActivity {
 
     public void loadZone(){
         //Ajout manuel de Zone
+
         SensorMeasure measureTemp = new SensorMeasure(32f);
         SensorMeasure measureHum = new SensorMeasure(50f);
         SensorMeasure measurePh = new SensorMeasure(7f);
@@ -139,7 +141,7 @@ public class StatsActivity extends AppCompatActivity {
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                filterBeds(listSpinner.get(position));
+
             }
         });
 */
@@ -150,12 +152,6 @@ public class StatsActivity extends AppCompatActivity {
 
     private Spinner spinner;
     ArrayList<String> listSpinner = new ArrayList<>();
-
-    //String zone[] = {"Zone A", "Zone B", "Zone C"};
-    //String bed[] = {"Bed A", "Bed B", "Bed C"};
-    String temp[] = {"32C", "22C", "45C"};
-    String humidity[] = {"50%", "25%", "33%"};
-    String ph[] = {"7", "2", "9"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,9 +172,6 @@ public class StatsActivity extends AppCompatActivity {
         Context context;
         ArrayList<Zone> rZone;
         ArrayList<String> rBed;
-        String rTemp[];
-        String rHumidity[];
-        String rPh[];
         String phColor[] = {
                 "#ffffff",
                 "#aa0000",
