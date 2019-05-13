@@ -132,7 +132,8 @@ public class StatsActivity extends AppCompatActivity {
         spinner = (Spinner)findViewById(R.id.spinner);
         listSpinner.add("None");
         for (int i = 0; i < bed.size(); i++) {
-            listSpinner.add(bed.get(i));
+            if(!listSpinner.contains(bed.get(i)))
+                listSpinner.add(bed.get(i));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,listSpinner);
