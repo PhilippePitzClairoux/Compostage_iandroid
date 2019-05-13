@@ -3,6 +3,7 @@ package com.compostage;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -40,5 +41,33 @@ public class Display_user extends AppCompatActivity {
     //Change activity on click
     public void ModifyOnClick(View v) {
         startActivity(new Intent(Display_user.this, Update_User.class));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.navMenu:
+            {
+                Intent in = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(in);
+                this.finish();
+                break;
+            }
+            case R.id.navStats:
+            {
+                Intent in = new Intent(getBaseContext(), StatsActivity.class);
+                startActivity(in);
+                this.finish();
+                break;
+            }
+            case R.id.displayUser:
+            {
+                Intent in = new Intent(getBaseContext(), Display_user.class);
+                startActivity(in);
+                this.finish();
+                break;
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
