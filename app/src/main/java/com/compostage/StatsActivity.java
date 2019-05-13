@@ -62,6 +62,9 @@ public class StatsActivity extends AppCompatActivity {
 
     public void loadZone(){
         //Ajout manuel de Zone
+        db_query_engine engine = new db_query_engine(this);
+        insertData insert = new insertData(engine,this);
+        insert.insert();
 
         SensorMeasure measureTemp = new SensorMeasure(32f);
         SensorMeasure measureHum = new SensorMeasure(50f);
