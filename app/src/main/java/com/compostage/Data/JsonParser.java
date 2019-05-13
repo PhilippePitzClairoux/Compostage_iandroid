@@ -14,4 +14,29 @@ public class JsonParser {
         return toParse.getString(fieldName);
     }
 
+    public boolean fieldNameExists(String fieldName) throws JSONException {
+
+        JSONArray iterate = toParse.names();
+
+        for (int i = 0; i < iterate.length(); i++) {
+
+            if (iterate.get(i).equals(fieldName))
+                return true;
+        }
+
+        return false;
+    }
+
+    public JSONObject getObject(String name) throws JSONException {
+        return toParse.getJSONObject(name);
+    }
+
+    public JSONArray getArray(String name) throws JSONException {
+        return toParse.getJSONArray(name);
+    }
+
+    public Integer length() {
+        return toParse.length();
+    }
+
 }
