@@ -14,7 +14,6 @@ import com.compostage.Data.JsonParser;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.EventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 String username = ((EditText)findViewById(R.id.username)).getText().toString();
                 String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-                String url = String.format(ServerQueries.VALIDATE_USERNAME, username);
+                String url = String.format(ServerQueries.GET_USER_INFO, username);
 
 
                 if (!username.isEmpty() && !password.isEmpty()) {
