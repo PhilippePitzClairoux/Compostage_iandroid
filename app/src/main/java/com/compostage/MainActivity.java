@@ -10,10 +10,14 @@ import android.widget.Toast;
 
 import com.compostage.Data.HttpRequester;
 import com.compostage.Data.JsonParser;
+import com.compostage.Data.User;
+import com.compostage.Data.UserType;
+import com.compostage.Exceptions.InvalidServerQuery;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +54,17 @@ public class MainActivity extends AppCompatActivity {
                         JsonParser passwordIsValid = new JsonParser(passValidation);
 
                         if (passwordIsValid.getField("isValid").equals("true")) {
+
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
+                            User user = new User(username);
+                            user.fetch_data(); //pass this object to the next window
+
                         } else {
+
                             invalid_password();
                             reset_password();
+
                         }
 
                     } catch (JSONException e) {
@@ -69,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                         e.printStackTrace();
 
+                    } catch (InvalidServerQuery invalidServerQuery) {
+                        invalidServerQuery.printStackTrace();
                     }
                 } else {
 

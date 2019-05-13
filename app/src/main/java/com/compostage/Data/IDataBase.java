@@ -1,14 +1,20 @@
 package com.compostage.Data;
 
+import com.compostage.Exceptions.InvalidServerQuery;
+
 public interface IDataBase {
 
     //get data from db
-    void fetch_data();
+    void fetch_data_locally();
 
     //insert data in the db
-    void insert_data();
+    void insert_data_locally();
 
-    //send the current data to the server
-    void sync_data();
+    //get data from db
+    void fetch_data() throws InvalidServerQuery;
+
+    //insert data in the db
+    void insert_data() throws InvalidServerQuery;
+
 
 }

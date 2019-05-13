@@ -1,29 +1,17 @@
 package com.compostage.Data;
 
-public class UserPermissions implements IDataBase {
+public class UserPermissions {
 
     private String permissionName;
     private String permissionDescription;
 
 
-    public UserPermissions(String permissionName) {
+    public UserPermissions(String permissionName, String permissionDescription) {
+
         this.permissionName = permissionName;
+        this.permissionDescription = permissionDescription;
     }
 
-    @Override
-    public void fetch_data() {
-
-    }
-
-    @Override
-    public void insert_data() {
-
-    }
-
-    @Override
-    public void sync_data() {
-
-    }
 
     public String getPermissionName() {
         return permissionName;
