@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">compostage</string>
+
+    <string name="label_temperature">Temperature (Celsius):</string>
+    <string name="ph">PH:</string>
+    <string name="humidity">Humidity (%):</string>
+    <string name="send">Send</string>
 </resources>
