@@ -97,7 +97,7 @@ public class insertData {
 
         //Insert in table sensor_type
         if(getCountTable(db.getTableSensorType()) == 0){
-            db.execution("INSERT INTO "+db.getTableSensorType()+"(sensor_type_name) VALUES (\"PH_SENOSR\"), (\"HUMIDITY_SENSOR\"), (\"TEMPATURE_SENSOR\")");
+            db.execution("INSERT INTO "+db.getTableSensorType()+"(sensor_type_name) VALUES (\"PH_SENOSR\"), (\"HUMIDITY_SENSOR\"), (\"TEMPERATURE_SENSOR\")");
 
         }
 
@@ -108,7 +108,7 @@ public class insertData {
 
         //Insert in table measure_type
         if(getCountTable(db.getTableMeasureType()) == 0){
-            db.execution("INSERT INTO "+db.getTableMeasureType()+"(measure_type_name) VALUES (\"PH\"), (\"HUMIDITY\"), (\"TEMPATURE\")");
+            db.execution("INSERT INTO "+db.getTableMeasureType()+"(measure_type_name) VALUES (\"PH\"), (\"HUMIDITY\"), (\"TEMPERATURE\")");
         }
 
         //Insert in table sensor
