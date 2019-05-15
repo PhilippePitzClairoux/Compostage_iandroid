@@ -1,23 +1,29 @@
 package com.compostage;
 
 import android.content.Context;
+
 import android.content.Intent;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import android.widget.Spinner;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -62,7 +68,6 @@ public class StatsActivity extends AppCompatActivity {
 
     public void loadZone(){
 
-
         /*
         //ajouter la DB au telephone
         db_query_engine engine = new db_query_engine(this);
@@ -72,6 +77,7 @@ public class StatsActivity extends AppCompatActivity {
 
         //Ajout manuel de Zone
         ////////////////////////////////////////////////////////////////////////////////
+
         SensorMeasure measureTemp = new SensorMeasure(32f);
         SensorMeasure measureHum = new SensorMeasure(50f);
         SensorMeasure measurePh = new SensorMeasure(7f);
@@ -89,6 +95,7 @@ public class StatsActivity extends AppCompatActivity {
         Zone z = new Zone(1,"Zone A");
 
         z.setRaspberryPi(raspberryPi);
+
         z.setBedName("Bed W");
         zone.add(z);
 
@@ -115,6 +122,7 @@ public class StatsActivity extends AppCompatActivity {
         //z = new Zone(2,"Zone B");
         zone.add(z);
         //z = new Zone(1,"Zone C");
+
         zone.add(z);
         ///////////////////////////////////////////////////////////////////////////////////
         // ^ a modifier pour load la BD
@@ -177,12 +185,15 @@ public class StatsActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(this, zone, bed);
         listView.setAdapter(adapter);
+
     }
 
     class MyAdapter extends ArrayAdapter<String>{
         Context context;
         ArrayList<Zone> rZone;
+
         ArrayList<String> rBed;
+
         String phColor[] = {
                 "#ffffff",
                 "#aa0000",
@@ -200,11 +211,13 @@ public class StatsActivity extends AppCompatActivity {
                 "#701ca0",
                 "#63007a"};
 
+
         MyAdapter (Context c, ArrayList<Zone> zone, ArrayList<String> bed){
             super(c,R.layout.row, R.id.zone, bed);
             this.context = c;
             this.rZone = new ArrayList<>(zone);
             this.rBed = new ArrayList<>(bed);
+
         }
 
         @NonNull
@@ -218,6 +231,7 @@ public class StatsActivity extends AppCompatActivity {
             TextView hum = row.findViewById(R.id.humidity);
             TextView ph = row.findViewById(R.id.ph);
             TextView space = row.findViewById(R.id.space);
+
             TextView raspId = row.findViewById(R.id.raspId);
             TextView userId = row.findViewById(R.id.userId);
 
@@ -229,6 +243,7 @@ public class StatsActivity extends AppCompatActivity {
             space.setBackgroundColor(Color.parseColor(phColor[Math.round(rZone.get(position).getPh())]));
             raspId.setText(String.valueOf(rZone.get(position).getRaspberryPi().getId()));
             userId.setText(String.valueOf(rZone.get(position).getRaspberryPi().getUserId()));
+
 
             return row;
         }

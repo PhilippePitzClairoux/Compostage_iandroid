@@ -60,7 +60,7 @@ public class db_query_engine extends SQLiteOpenHelper{
     private static final String KEY_AUTH_ANSWER = "auth_answer";
 
     //bed table - column names
-    private static final String KEY_BED_ID = "bed_id";
+    private static final String KEY_BED_ID = "_id";
     private static final String KEY_BED_NAME = "bed_name";
 
     //zone table - column names

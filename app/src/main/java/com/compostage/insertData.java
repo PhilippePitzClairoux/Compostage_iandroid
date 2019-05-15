@@ -74,7 +74,7 @@ public class insertData {
 
         //Insert in table zone
         if(getCountTable(db.getTableZone()) == 0){
-            db.execution("INSERT INTO "+db.getTableZone()+"(bed_id, zone_name) VALUES (1, \"UNO\"), (1, \"DOS\"), (1, \"TRES\"), (2, \"UNO\"), (2, \"DOS\"), (3, \"TRES\")");
+            db.execution("INSERT INTO "+db.getTableZone()+"(_id, zone_name) VALUES (1, \"UNO\"), (1, \"DOS\"), (1, \"TRES\"), (2, \"UNO\"), (2, \"DOS\"), (3, \"TRES\")");
         }
 
         //Insert in table raspberry_pi_type

@@ -18,9 +18,6 @@ import java.util.EventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String HOST = "192.168.0.102";
-    private String VALIDATE_USERNAME = "http://" + HOST + "/controller/java/getUserInfo.php?username=%s";
-    private String VALIDATE_PASSWORD = "http://" + HOST + "/controller/java/testPassword.php?to_test=%s&encrypted_password=%s";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
                 String username = ((EditText)findViewById(R.id.username)).getText().toString();
                 String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-                String url = String.format(VALIDATE_USERNAME, username);
+                String url = String.format(ServerQueries.VALIDATE_USERNAME, username);
 
 
                 if (!username.isEmpty() && !password.isEmpty()) {
                     try {
 
                         JsonParser ans = new JsonParser(new HttpRequester(url).processRequest());
-                        url = String.format(VALIDATE_PASSWORD, password, ans.getField("user_password"));
+                        url = String.format(ServerQueries.VALIDATE_PASSWORD, password, ans.getField("user_password"));
 
                         String passValidation = new HttpRequester(url).processRequest();
                         JsonParser passwordIsValid = new JsonParser(passValidation);
