@@ -85,6 +85,8 @@ public class insertData {
         //Insert in table raspberry_pi
         if(getCountTable(db.getTableRaspberryPi()) == 0){
             db.execution("INSERT INTO "+db.getTableRaspberryPi()+"(zone_id, user_id, raspberry_pi_type, raspberry_pi_aquisition_date, raspberry_pi_capacity) VALUES (1, \"raspberry_pi\", \"MODEL_3\", \"2019-04-24\", 32)");
+            db.execution("INSERT INTO "+db.getTableRaspberryPi()+"(zone_id, user_id, raspberry_pi_type, raspberry_pi_aquisition_date, raspberry_pi_capacity) VALUES (4, \"raspberry_pi\", \"MODEL_3\", \"2019-04-24\", 32)");
+            db.execution("INSERT INTO "+db.getTableRaspberryPi()+"(zone_id, user_id, raspberry_pi_type, raspberry_pi_aquisition_date, raspberry_pi_capacity) VALUES (3, \"raspberry_pi\", \"MODEL_3\", \"2019-04-24\", 32)");
         }
 
         //Insert in table alert_configuration
@@ -114,6 +116,8 @@ public class insertData {
         //Insert in table sensor
         if(getCountTable(db.getTableSensor()) == 0){
             db.execution("INSERT INTO "+db.getTableSensor()+"(sensor_type_id, sensor_state_id, raspberry_pi_id, sensor_aquisition_date, sensor_serial_number) VALUES (1, 1, 1, \"2019-04-24 11:06:23\", \"666-696969-666\")");
+            db.execution("INSERT INTO "+db.getTableSensor()+"(sensor_type_id, sensor_state_id, raspberry_pi_id, sensor_aquisition_date, sensor_serial_number) VALUES (1, 1, 2, \"2019-04-24 11:06:23\", \"666-696969-666\")");
+            db.execution("INSERT INTO "+db.getTableSensor()+"(sensor_type_id, sensor_state_id, raspberry_pi_id, sensor_aquisition_date, sensor_serial_number) VALUES (1, 1, 3, \"2019-04-24 11:06:23\", \"666-696969-666\")");
         }
 
         //Insert in table update_state

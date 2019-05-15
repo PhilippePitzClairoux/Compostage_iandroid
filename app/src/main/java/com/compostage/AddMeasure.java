@@ -27,6 +27,9 @@ public class AddMeasure extends AppCompatActivity {
     private EditText ph;
     private EditText humidity;
 
+    private SimpleCursorAdapter adapterB;
+    private SimpleCursorAdapter adapterZ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -49,31 +52,51 @@ public class AddMeasure extends AppCompatActivity {
          Cursor cursor = db.execution_with_return("SELECT * FROM bed");
 
         String[] column = new String[]{"bed_name"};
-        int[] spinner = new int[]{android.R.id.text1};
+        final int[] spinner = new int[]{android.R.id.text1};
 
-        SimpleCursorAdapter adapterB = new SimpleCursorAdapter(this,android.R.layout.simple_spinner_item,cursor, column,spinner,0);
+        adapterB = new SimpleCursorAdapter(this,android.R.layout.simple_spinner_item,cursor, column,spinner,0);
 
         adapterB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         bed.setAdapter(adapterB);
 
-        cursor = db.execution_with_return("SELECT * FROM zone");
+
+
+        cursor=(Cursor)adapterB.getItem(0);
+
+        String bedName = cursor.getString(cursor.getColumnIndex("bed_name"));
+
+        cursor = db.execution_with_return("SELECT _id FROM bed WHERE bed_name = '"+bedName+"'");
+
+        final String bedId = cursor.getString(cursor.getColumnIndex("_id"));
+
+        cursor = db.execution_with_return("SELECT * FROM zone WHERE _id = "+bedId);
 
         column = new String[]{"zone_name"};
 
-        final SimpleCursorAdapter adapterZ = new SimpleCursorAdapter(this,android.R.layout.simple_spinner_item,cursor, column,spinner,0);
+        adapterZ = new SimpleCursorAdapter(this,android.R.layout.simple_spinner_item,cursor, column,spinner,0);
         adapterZ.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         zone.setAdapter(adapterZ);
+
+
 
         send.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
 
-                Cursor cursor = (Cursor)adapterZ.getItem(0);
+                Cursor cursor = (Cursor)adapterZ.getItem(zone.getSelectedItemPosition());
                 String zoneName = cursor.getString(cursor.getColumnIndex("zone_name"));
 
+                cursor=(Cursor)adapterB.getItem(bed.getSelectedItemPosition());
+
+                String bedName = cursor.getString(cursor.getColumnIndex("bed_name"));
+
+                cursor = db.execution_with_return("SELECT _id FROM bed WHERE bed_name = '"+bedName+"'");
+
+                String bedId = cursor.getString(cursor.getColumnIndex("_id"));
+
                 String query = "SELECT sensor_id FROM sensor JOIN raspberry_pi ON sensor.raspberry_pi_id=raspberry_pi.raspberry_pi_id JOIN zone ON zone.zone_id=raspberry_pi.zone_id WHERE zone_name = '"
-                        + zoneName+"'";
+                        + zoneName+"' AND _id = "+bedId;
 
                  cursor = db.execution_with_return(query);
 
@@ -121,6 +144,33 @@ public class AddMeasure extends AppCompatActivity {
                         measure.addToDatabase(db,sensorId);
                     }
                 }
+            }
+        });
+
+
+        bed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Cursor cursor=(Cursor)adapterB.getItem(bed.getSelectedItemPosition());
+
+                String bedName = cursor.getString(cursor.getColumnIndex("bed_name"));
+
+                cursor = db.execution_with_return("SELECT _id FROM bed WHERE bed_name = '"+bedName+"'");
+
+                String bedId = cursor.getString(cursor.getColumnIndex("_id"));
+
+                cursor = db.execution_with_return("SELECT * FROM zone WHERE _id = "+bedId);
+
+                String[] column = new String[]{"zone_name"};
+
+                adapterZ = new SimpleCursorAdapter(view.getContext(),android.R.layout.simple_spinner_item,cursor, column,spinner,0);
+                adapterZ.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                zone.setAdapter(adapterZ);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
