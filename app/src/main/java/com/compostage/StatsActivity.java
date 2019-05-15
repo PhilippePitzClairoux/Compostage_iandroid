@@ -67,8 +67,16 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     public void loadZone(){
-        //Ajout manuel de Zone
 
+        /*
+        //ajouter la DB au telephone
+        db_query_engine engine = new db_query_engine(this);
+        insertData insert = new insertData(engine,this);
+        insert.insert();
+        */
+
+        //Ajout manuel de Zone
+        ////////////////////////////////////////////////////////////////////////////////
 
         SensorMeasure measureTemp = new SensorMeasure(32f);
         SensorMeasure measureHum = new SensorMeasure(50f);
@@ -116,7 +124,8 @@ public class StatsActivity extends AppCompatActivity {
         //z = new Zone(1,"Zone C");
 
         zone.add(z);
-
+        ///////////////////////////////////////////////////////////////////////////////////
+        // ^ a modifier pour load la BD
     }
 
     public void setBeds(){
