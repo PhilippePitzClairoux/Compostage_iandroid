@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorAccent">
 
 
     <LinearLayout
@@ -21,7 +22,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51">
+        app:layout_constraintVertical_bias="0.51"
+        android:background="@color/colorPrimaryDark"
+        >
 
         <EditText
             android:id="@+id/username"
@@ -30,7 +33,10 @@
             android:layout_margin="20dp"
             android:ems="10"
             android:hint="Username"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/textColor"
+            android:backgroundTint="@color/textColor"/>
 
         <EditText
             android:id="@+id/password"
@@ -39,7 +45,10 @@
             android:layout_margin="20dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/textColor"
+            android:backgroundTint="@color/textColor"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +68,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="Forgot password" />
+                android:text="Forgot password"
+                android:backgroundTint="@color/subTextColor"
+                android:textColor="@color/colorPrimaryDark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +83,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Login" />
+                    android:text="Login"
+                    android:backgroundTint="@color/subTextColor"
+                    android:textColor="@color/colorPrimaryDark"/>
             </LinearLayout>
 
         </LinearLayout>

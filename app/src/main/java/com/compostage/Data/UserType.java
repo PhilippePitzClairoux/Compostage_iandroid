@@ -1,21 +1,30 @@
 package com.compostage.Data;
 
-class UserType implements IDataBase {
+import java.util.ArrayList;
+
+public class UserType {
 
     private String userTypeName;
     private String userTypeDescription;
-    private UserPermissions[] userPermissions;
+    private ArrayList<UserPermissions> userPermissions;
 
-    public UserType(String userTypeName) {
+    public UserType(String userTypeName, String userTypeDescription) {
+
         this.userTypeName = userTypeName;
+        this.userTypeDescription = userTypeDescription;
+        this.userPermissions = new ArrayList<>();
     }
 
-    public UserPermissions[] getUserPermissions() {
+    public ArrayList<UserPermissions> getUserPermissions() {
         return userPermissions;
     }
 
-    public void setUserPermissions(UserPermissions[] userPermissions) {
-        this.userPermissions = userPermissions;
+    public UserPermissions getUserPermission(Integer index) {
+        return userPermissions.get(index);
+    }
+
+    public void addUserPermission(UserPermissions userPermissions) {
+        this.userPermissions.add(userPermissions);
     }
 
     public String getUserTypeName() {
@@ -32,20 +41,5 @@ class UserType implements IDataBase {
 
     public void setUserTypeDescription(String userTypeDescription) {
         this.userTypeDescription = userTypeDescription;
-    }
-
-    @Override
-    public void fetch_data() {
-
-    }
-
-    @Override
-    public void insert_data() {
-
-    }
-
-    @Override
-    public void sync_data() {
-
     }
 }

@@ -10,11 +10,14 @@ import android.widget.Toast;
 
 import com.compostage.Data.HttpRequester;
 import com.compostage.Data.JsonParser;
+import com.compostage.Data.User;
+import com.compostage.Data.UserType;
+import com.compostage.Exceptions.InvalidServerQuery;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.EventListener;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 String username = ((EditText)findViewById(R.id.username)).getText().toString();
                 String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
-                String url = String.format(ServerQueries.VALIDATE_USERNAME, username);
+                String url = String.format(ServerQueries.GET_USER_INFO, username);
 
 
                 if (!username.isEmpty() && !password.isEmpty()) {
@@ -51,11 +54,17 @@ public class MainActivity extends AppCompatActivity {
                         JsonParser passwordIsValid = new JsonParser(passValidation);
 
                         if (passwordIsValid.getField("isValid").equals("true")) {
+
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
+                            User user = new User(username);
+                            user.fetch_data(); //pass this object to the next window
+
                         } else {
+
                             invalid_password();
                             reset_password();
+
                         }
 
                     } catch (JSONException e) {
@@ -68,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
 
-                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Cannot reach the server, check network.",
+                                Toast.LENGTH_LONG).show();
 
+                    } catch (InvalidServerQuery invalidServerQuery) {
+                        invalidServerQuery.printStackTrace();
                     }
                 } else {
 
