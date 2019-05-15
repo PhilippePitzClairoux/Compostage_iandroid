@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
 
-                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Cannot reach the server, check network.",
+                                Toast.LENGTH_LONG).show();
 
                     } catch (InvalidServerQuery invalidServerQuery) {
                         invalidServerQuery.printStackTrace();
