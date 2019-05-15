@@ -119,6 +119,7 @@ public class db_query_engine extends SQLiteOpenHelper{
     private static final String KEY_MEASURE_ID ="measure_id";
     private static final String KEY_MEASURE_TIMESTAMP ="measure_timestamp";
 
+
     //ta_measure_type - column names
     private static final String KEY_MEASURE_VALUE ="measure_value";
 
@@ -257,7 +258,7 @@ public class db_query_engine extends SQLiteOpenHelper{
             KEY_MEASURE_TYPE_ID +" INTEGER NOT NULL, " +
             KEY_MEASURE_VALUE +" FLOAT NOT NULL, " +
             "CONSTRAINT ta_measure_type_ibfk_1 FOREIGN KEY("+KEY_MEASURE_ID+") REFERENCES "+TABLE_MEASURES+"("+KEY_MEASURE_ID+"),\n" +
-            "CONSTRAINT ta_measure_type_ibfk_2 FOREIGN KEY("+KEY_MEASURE_TYPE_ID+") REFERENCES "+TABLE_TA_MEASURE_TYPE+"("+KEY_MEASURE_TYPE_ID+"),\n" +
+            "CONSTRAINT ta_measure_type_ibfk_2 FOREIGN KEY("+KEY_MEASURE_TYPE_ID+") REFERENCES "+TABLE_MEASURE_TYPE+"("+KEY_MEASURE_TYPE_ID+"),\n" +
             "CONSTRAINT ta_measure_type_ibpk PRIMARY KEY("+KEY_MEASURE_ID+", "+KEY_MEASURE_TYPE_ID+"))";
 
     //update_completed - create statement
@@ -386,6 +387,7 @@ public class db_query_engine extends SQLiteOpenHelper{
     public void execution(String sql){
         SQLiteDatabase db = this.getWritableDatabase();
 
+        //System.out.println("Testing");
         db.execSQL(sql);
     }
 
