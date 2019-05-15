@@ -127,5 +127,54 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/extendable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="RaspID :"
+                android:textColor="@color/subTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/raspId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="RaspID"
+                android:textColor="@color/subTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="UsetID :"
+                android:textColor="@color/subTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="RaspDate"
+                android:textColor="@color/subTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
