@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class Zone {
     public Zone(){
+
         this.setRaspberryPi(null);
         this.setName("");
         this.setBedName("");
+
     }
 
     public Zone(int id, String name){
@@ -43,6 +45,7 @@ public class Zone {
     private int bedId;
     private String name;
     private String bedName;
+
 
     private RaspberryPi raspberryPi;
 
@@ -83,6 +86,7 @@ public class Zone {
     public void setRaspberryPi(RaspberryPi raspberryPi) {
         this.raspberryPi = raspberryPi;
     }
+
 
     public String getBedName() {
         return bedName;
