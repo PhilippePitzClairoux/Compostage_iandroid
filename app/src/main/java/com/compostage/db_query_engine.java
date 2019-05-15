@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 import java.io.File;
 
@@ -403,5 +404,11 @@ public class db_query_engine extends SQLiteOpenHelper{
             c.moveToFirst();
 
         return c;
+    }
+
+    public SQLiteStatement compile_statement(String query) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return db.compileStatement(query);
     }
 }

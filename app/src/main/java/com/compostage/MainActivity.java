@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        db_query_engine query_engine = new db_query_engine(MainActivity.this);
+        insertData createData = new insertData(query_engine, MainActivity.this);
+
+        createData.insert();
+
+
         Button login = findViewById(R.id.login);
 
         findViewById(R.id.username).requestFocus();
