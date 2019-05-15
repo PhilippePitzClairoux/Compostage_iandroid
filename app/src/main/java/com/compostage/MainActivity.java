@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String username = ((EditText)findViewById(R.id.username)).getText().toString();
                 String password = ((EditText)findViewById(R.id.password)).getText().toString();
+                User user = new User(username, query_engine);
 
                 String url = String.format(ServerQueries.GET_USER_INFO, username);
 
@@ -57,18 +58,17 @@ public class MainActivity extends AppCompatActivity {
                 if (!username.isEmpty() && !password.isEmpty()) {
                     try {
 
-                        JsonParser ans = new JsonParser(new HttpRequester(url).processRequest());
-                        url = String.format(ServerQueries.VALIDATE_PASSWORD, password, ans.getField("user_password"));
+                        user.fetch_data(); //pass this object to the next window
+                        url = String.format(ServerQueries.VALIDATE_PASSWORD, password, user.getPassword());
+                        JsonParser isValid = new JsonParser(new HttpRequester(url).processRequest());
 
-                        String passValidation = new HttpRequester(url).processRequest();
-                        JsonParser passwordIsValid = new JsonParser(passValidation);
 
-                        if (passwordIsValid.getField("isValid").equals("true")) {
+                        if (isValid.getField("isValid").equals("true")) {
 
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
-                            User user = new User(username, query_engine);
-                            user.fetch_data(); //pass this object to the next window
+
+
 
                         } else {
 

@@ -105,7 +105,7 @@ public class User implements IDataBase {
                 throw new InvalidServerQuery(answer.getField("error"));
             }
 
-            this.password = answer.getField("user_password");
+            this.password = (answer.getField("user_password").charAt(2) == 'y' ? answer.getField("user_password").replace("$2y$", "$2a$") : answer.getField("user_password"));
             this.email = answer.getField("user_email");
             this.authquestion = answer.getField("user_auth_question");
             this.authanswer = answer.getField("user_auth_answer");
@@ -189,7 +189,7 @@ public class User implements IDataBase {
 
     public String sync_data(String password, String email, String authquestion, String authanswer) {
 
-        password = (!password.equals(this.password) ? password : "");
+        password = (password.charAt(2) == 'a' ? password.replace("$2a$", "$2y$") : password);
         email = (!email.equals(this.email) ? email : "");
         authquestion = (!authquestion.equals(this.authquestion) ? authquestion : "");
         authanswer = (!authanswer.equals(this.authanswer) ? authanswer : "");
