@@ -8,13 +8,13 @@ import java.security.NoSuchAlgorithmException;
 public interface IDataBase {
 
     //get data from db
-    void fetch_data_locally(db_query_engine engine);
+    void fetch_data_locally();
 
     //insert data in the db
-    void insert_data_locally(db_query_engine engine) throws NoSuchAlgorithmException;
+    void insert_data_locally();
 
     //update local db
-    void update_data_locally(db_query_engine engine);
+    void update_data_locally();
 
     //get data from db
     void fetch_data() throws InvalidServerQuery;

@@ -30,11 +30,15 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        db_query_engine query_engine = new db_query_engine(MainActivity.this);
+        final db_query_engine query_engine = new db_query_engine(MainActivity.this);
         insertData createData = new insertData(query_engine, MainActivity.this);
 
         createData.insert();
 
+        User tmp = new User("admin", query_engine);
+        tmp.fetch_data_locally();
+
+        System.out.println("Testing local db : " + tmp.getPassword());
 
         Button login = findViewById(R.id.login);
 
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
-                            User user = new User(username);
+                            User user = new User(username, query_engine);
                             user.fetch_data(); //pass this object to the next window
 
                         } else {

@@ -406,9 +406,19 @@ public class db_query_engine extends SQLiteOpenHelper{
         return c;
     }
 
+    public Cursor execution_with_return(String sql, String[] args) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Log.e(LOG, sql);
+
+        return db.rawQuery(sql, args);
+    }
+
     public SQLiteStatement compile_statement(String query) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         return db.compileStatement(query);
     }
+
+
 }
