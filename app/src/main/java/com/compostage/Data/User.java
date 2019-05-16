@@ -99,7 +99,7 @@ public class User implements Serializable, IDataBase {
     }
 
     @Override
-    public void fetch_data() throws InvalidServerQuery {
+    public void fetch_data() throws InvalidServerQuery, IOException {
 
         String query = String.format(ServerQueries.GET_USER_INFO, this.username);
 
@@ -137,10 +137,6 @@ public class User implements Serializable, IDataBase {
             Log.e(query, e.getMessage());
             System.out.println(e.getMessage());
         } catch (JSONException e) {
-
-            Log.e(query, e.getMessage());
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
 
             Log.e(query, e.getMessage());
             System.out.println(e.getMessage());
@@ -234,9 +230,18 @@ public class User implements Serializable, IDataBase {
     }
 
     public boolean test_password(String password) {
-        System.out.println("password : " + password);
-        System.out.println("Hash : " + this.getPassword());
         return BCrypt.checkpw(password, this.getPassword());
+    }
+
+    public boolean test_auth_answer(String answer) {
+        return BCrypt.checkpw(answer, this.getAuthanswer());
+    }
+
+    public boolean is_loaded_properly() {
+        return (this.email != null && this.usertype != null &&
+                this.authquestion != null &&
+                this.authanswer != null &&
+                this.password != null);
     }
 
 }

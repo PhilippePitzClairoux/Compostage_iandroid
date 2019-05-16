@@ -6,4 +6,5 @@
     <string name="humidity">Humidity (%):</string>
     <string name="send">Send</string>
     <string name="welcome_s">WELCOME %s!</string>
+    <string name="oof">Please answer the following question :</string>
 </resources>

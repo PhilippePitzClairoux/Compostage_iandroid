@@ -3,6 +3,7 @@ package com.compostage.Data;
 import com.compostage.Exceptions.InvalidServerQuery;
 import com.compostage.db_query_engine;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 
@@ -17,7 +18,7 @@ public interface IDataBase {
     void update_data_locally();
 
     //get data from db
-    void fetch_data() throws InvalidServerQuery;
+    void fetch_data() throws InvalidServerQuery, IOException;
 
 
     void update_data();
