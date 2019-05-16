@@ -63,8 +63,8 @@ public class insertData {
         //Insert in table users
         if(getCountTable(db.getTableUsers()) == 0){
             db.execution("INSERT INTO "+db.getTableUsers()+"(username, user_type_id, password, email, auth_question, auth_answer)"+
-                    " VALUES (\"admin\", \"admin\", \"$2y$10$ZIaeQm9egZQLh0h7u2WUpuMSbUZprck3/sWFkyuFLDfpc9OpTv.ia\", \"test@gmail.com\", \"hehe?\", \"$2y$10$Mrv.jrNC6NNNyFaa5OBwWeAuGmd7XLvNXWSxMs0k8CVQV5NLs1FEC\"),"+
-                    " (\"raspberry_pi\", \"raspberry_pi\", \"$2y$10$ZIaeQm9egZQLh0h7u2WUpuMSbUZprck3/sWFkyuFLDfpc9OpTv.ia\", \"raspberry@test.com\", \"hehe?\", \"$2y$10$Mrv.jrNC6NNNyFaa5OBwWeAuGmd7XLvNXWSxMs0k8CVQV5NLs1FEC\")");
+                    " VALUES (\"admin\", \"admin\", \"$2a$10$ZIaeQm9egZQLh0h7u2WUpuMSbUZprck3/sWFkyuFLDfpc9OpTv.ia\", \"test@gmail.com\", \"hehe?\", \"$2y$10$Mrv.jrNC6NNNyFaa5OBwWeAuGmd7XLvNXWSxMs0k8CVQV5NLs1FEC\"),"+
+                    " (\"raspberry_pi\", \"raspberry_pi\", \"$2a$10$ZIaeQm9egZQLh0h7u2WUpuMSbUZprck3/sWFkyuFLDfpc9OpTv.ia\", \"raspberry@test.com\", \"hehe?\", \"$2y$10$Mrv.jrNC6NNNyFaa5OBwWeAuGmd7XLvNXWSxMs0k8CVQV5NLs1FEC\")");
         }
 
         //Insert in table bed

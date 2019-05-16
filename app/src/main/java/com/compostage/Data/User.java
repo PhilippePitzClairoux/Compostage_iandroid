@@ -1,17 +1,29 @@
 package com.compostage.Data;
 
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
+
 import android.util.Log;
 import android.widget.Toast;
 
 import com.compostage.Exceptions.InvalidServerQuery;
+
+import com.compostage.MainActivity;
 import com.compostage.ServerQueries;
+import com.compostage.db_query_engine;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class User implements IDataBase {
 
@@ -21,11 +33,19 @@ public class User implements IDataBase {
     private String email;
     private String authquestion;
     private String authanswer;
+    private db_query_engine query_engine_instance;
+
+    private static String INSERT_NEW_USER_LOCALLY = "INSERT INTO users(username, user_type_id," +
+            " password, email, auth_question, auth_answer) VALUES (?, ?, ?, ?, ?, ?)";
+    private static String FETCH_USER_LOCALLY = "SELECT * FROM users WHERE username = ?";
 
 
-    public User(String username) {
+    public User(String username, db_query_engine engine)
+    {
         this.username = username;
+        this.query_engine_instance = engine;
     }
+
 
     public String getUsername() {
         return username;
@@ -48,7 +68,7 @@ public class User implements IDataBase {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public String getEmail() {
@@ -75,7 +95,6 @@ public class User implements IDataBase {
         this.authanswer = authanswer;
     }
 
-    //fetch from local db
     @Override
     public void fetch_data() throws InvalidServerQuery {
 
@@ -90,7 +109,7 @@ public class User implements IDataBase {
                 throw new InvalidServerQuery(answer.getField("error"));
             }
 
-            this.password = answer.getField("user_password");
+            this.password = (answer.getField("user_password").charAt(2) == 'y' ? answer.getField("user_password").replace("$2y$", "$2a$") : answer.getField("user_password"));
             this.email = answer.getField("user_email");
             this.authquestion = answer.getField("user_auth_question");
             this.authanswer = answer.getField("user_auth_answer");
@@ -126,32 +145,60 @@ public class User implements IDataBase {
 
     }
 
-    //Insert in the local db
     @Override
-    public void insert_data() throws InvalidServerQuery {
+    public void update_data() {
 
     }
 
     @Override
     public void fetch_data_locally() {
 
+        Cursor info = query_engine_instance.execution_with_return(FETCH_USER_LOCALLY,
+                new String[] { this.getUsername() });
+
+        this.setEmail(info.getString(info.getColumnIndex("email")));
+        this.setPassword(info.getString(info.getColumnIndex("password")));
+        this.setUsertype(new UserType(info.getString(info.getColumnIndex("user_type_id")),
+                this.query_engine_instance));
+        this.setAuthquestion(info.getString(info.getColumnIndex("auth_question")));
+        this.setAuthanswer(info.getString(info.getColumnIndex("auth_answer")));
+
+        info.close();
     }
 
+    //Insert in the local db
     @Override
     public void insert_data_locally() {
 
+        SQLiteStatement sqls = this.query_engine_instance.compile_statement(INSERT_NEW_USER_LOCALLY);
+
+        sqls.bindString(1, this.getUsername());
+        sqls.bindString(2, this.getUsertype().getUserTypeName());
+        sqls.bindString(1, this.getPassword());
+        sqls.bindString(1, this.getEmail());
+        sqls.bindString(1, this.getAuthquestion());
+        sqls.bindString(1, this.getAuthanswer());
+
+        if (sqls.executeInsert() < 0) {
+            System.out.println("Cannot insert user data locally...");
+        }
+
+        sqls.close();
     }
 
+    @Override
+    public void update_data_locally() {
+
+    }
 
 
     public String sync_data(String password, String email, String authquestion, String authanswer) {
 
-        password = (!password.equals(this.password) ? password : "");
+        password = (password.charAt(2) == 'a' ? password.replace("$2a$", "$2y$") : password);
         email = (!email.equals(this.email) ? email : "");
         authquestion = (!authquestion.equals(this.authquestion) ? authquestion : "");
         authanswer = (!authanswer.equals(this.authanswer) ? authanswer : "");
         JsonParser answer;
-
 
         String query = ServerQueries.getSyncUserInfoString(this.username, password,
                 email, authquestion, authanswer);
@@ -176,8 +223,12 @@ public class User implements IDataBase {
 
             Log.e(query, e.getMessage());
         }
-
         //if theres a major fuckup, return nothing (should basically never happen
         return "";
     }
+
+    public boolean test_password(String password) {
+        return BCrypt.checkpw(password, this.getPassword());
+    }
+
 }
