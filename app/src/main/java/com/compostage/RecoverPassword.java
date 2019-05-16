@@ -1,6 +1,5 @@
 package com.compostage;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,14 +11,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.compostage.Data.HttpRequester;
-import com.compostage.Data.JsonParser;
 import com.compostage.Data.User;
 import com.compostage.Exceptions.InvalidServerQuery;
-
-import org.json.JSONException;
 
 import java.io.IOException;
 
@@ -102,6 +96,8 @@ public class RecoverPassword extends AppCompatActivity {
 
                         user.setPassword(pass1);
                         user.update_data_locally();
+//                        CustomNotificationManager.sendNotifications(RecoverPassword.this,
+//                                "Important update!", "Password has been recovered!");
                         RecoverPassword.this.finishAndRemoveTask();
 
                     } else {
