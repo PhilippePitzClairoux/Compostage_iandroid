@@ -41,6 +41,8 @@ public class User implements Serializable, IDataBase {
     private static String INSERT_NEW_USER_LOCALLY = "INSERT INTO users(username, user_type_id," +
             " password, email, auth_question, auth_answer) VALUES (?, ?, ?, ?, ?, ?)";
     private static String FETCH_USER_LOCALLY = "SELECT * FROM users WHERE username = ?";
+    private static String UPDATE_USER_LOCALLY = "UPDATE users SET user_type_id = ?," +
+            " password = ?, email = ?, auth_question = ?, auth_answer = ? WHERE username = ?";
 
 
     public User(String username, db_query_engine engine)
@@ -176,10 +178,10 @@ public class User implements Serializable, IDataBase {
 
         sqls.bindString(1, this.getUsername());
         sqls.bindString(2, this.getUsertype().getUserTypeName());
-        sqls.bindString(1, this.getPassword());
-        sqls.bindString(1, this.getEmail());
-        sqls.bindString(1, this.getAuthquestion());
-        sqls.bindString(1, this.getAuthanswer());
+        sqls.bindString(3, this.getPassword());
+        sqls.bindString(4, this.getEmail());
+        sqls.bindString(5, this.getAuthquestion());
+        sqls.bindString(6, this.getAuthanswer());
 
         if (sqls.executeInsert() < 0) {
             System.out.println("Cannot insert user data locally...");
@@ -190,6 +192,19 @@ public class User implements Serializable, IDataBase {
 
     @Override
     public void update_data_locally() {
+
+        SQLiteStatement sqls = this.query_engine_instance.compile_statement(UPDATE_USER_LOCALLY);
+
+        sqls.bindString(1, this.getUsertype().getUserTypeName());
+        sqls.bindString(2, this.getPassword());
+        sqls.bindString(3, this.getEmail());
+        sqls.bindString(4, this.getAuthquestion());
+        sqls.bindString(5, this.getAuthanswer());
+        sqls.bindString(6, this.getUsername());
+
+        if (sqls.executeUpdateDelete() < 1) {
+            System.out.println("Cannot update the data locally...");
+        }
 
     }
 

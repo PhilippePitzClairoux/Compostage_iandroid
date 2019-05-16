@@ -42,6 +42,7 @@ public class RecoverPassword extends AppCompatActivity {
 
         TextView question = findViewById(R.id.question);
         EditText answer = findViewById(R.id.answer);
+        final TextView error = findViewById(R.id.error);
 
 
 
@@ -86,6 +87,35 @@ public class RecoverPassword extends AppCompatActivity {
                     }
                 }
                 return false;
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String pass1 = password1.getText().toString();
+                String pass2 = password2.getText().toString();
+
+                if (!pass1.isEmpty() && !pass2.isEmpty()) {
+                    if (pass1.equals(pass2) && pass1.length() > 4) {
+
+                        user.setPassword(pass1);
+                        user.update_data_locally();
+                        RecoverPassword.this.finishAndRemoveTask();
+
+                    } else {
+
+                        if (pass1.length() <= 4 || pass2.length() <= 4)
+                            error.setText(R.string.pass_too_short);
+
+                        if (!pass1.equals(pass2))
+                            error.setText(getString(R.string.error_pass_no_match));
+                    }
+                } else {
+                    error.setText(R.string.not_enough_pass);
+                }
+
             }
         });
 
