@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.compostage.Data.User;
@@ -60,10 +62,24 @@ public class Dashboard extends AppCompatActivity {
         this.query_engine = new db_query_engine(this);
         this.user = new User(getIntent().getStringExtra("currentUser"), this.query_engine);
 
+        Button insertData = findViewById(R.id.load_insert);
+
+        System.out.println("Current User : " + user.getUsername());
+
         this.user.fetch_data_locally();
 
         TextView greetings_message = findViewById(R.id.welcome_message);
         greetings_message.setText(String.format(WELCOME_MESSAGE, user.getUsername()));
+
+        insertData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent insertData = new Intent(Dashboard.this, AddMeasure.class);
+                Dashboard.this.startActivity(insertData);
+            }
+        });
+
+
     }
 
 }
