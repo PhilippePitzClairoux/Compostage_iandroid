@@ -21,9 +21,29 @@
             android:inputType="textPersonName"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/subTextColor"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_margin="30dp"
             android:textAlignment="center"
             android:text="@string/welcome_s" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/subTextColor"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/instructions"
+            android:textSize="25dp"
+            android:layout_margin="30dp"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/load_insert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:text="Insert data"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/textColor"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
