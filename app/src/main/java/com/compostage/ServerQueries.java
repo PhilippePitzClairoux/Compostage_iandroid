@@ -2,7 +2,7 @@ package com.compostage;
 
 public class ServerQueries {
 
-    private static final String HOST = "192.168.0.102";
+    private static final String HOST = "";
 
     public static final String GET_USER_INFO = "http://" + HOST +
             "/controller/java/getUserInfo.php?username=%s";
