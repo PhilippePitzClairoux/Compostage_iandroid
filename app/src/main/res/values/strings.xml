@@ -5,4 +5,9 @@
     <string name="ph">PH:</string>
     <string name="humidity">Humidity (%):</string>
     <string name="send">Send</string>
+    <string name="welcome_s">WELCOME %s!</string>
+    <string name="oof">Please answer the following question :</string>
+    <string name="error_pass_no_match">The two passwords don\'t match.</string>
+    <string name="not_enough_pass">Please retype the new password twice</string>
+    <string name="pass_too_short">The password is too short (needs to be 4 characters or more)</string>
 </resources>

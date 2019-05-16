@@ -4,6 +4,8 @@ package com.compostage.Data;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,12 +22,13 @@ import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class User implements IDataBase {
+public class User implements Serializable, IDataBase {
 
     private String username;
     private UserType usertype;
@@ -38,6 +41,8 @@ public class User implements IDataBase {
     private static String INSERT_NEW_USER_LOCALLY = "INSERT INTO users(username, user_type_id," +
             " password, email, auth_question, auth_answer) VALUES (?, ?, ?, ?, ?, ?)";
     private static String FETCH_USER_LOCALLY = "SELECT * FROM users WHERE username = ?";
+    private static String UPDATE_USER_LOCALLY = "UPDATE users SET user_type_id = ?," +
+            " password = ?, email = ?, auth_question = ?, auth_answer = ? WHERE username = ?";
 
 
     public User(String username, db_query_engine engine)
@@ -96,7 +101,7 @@ public class User implements IDataBase {
     }
 
     @Override
-    public void fetch_data() throws InvalidServerQuery {
+    public void fetch_data() throws InvalidServerQuery, IOException {
 
         String query = String.format(ServerQueries.GET_USER_INFO, this.username);
 
@@ -137,10 +142,6 @@ public class User implements IDataBase {
 
             Log.e(query, e.getMessage());
             System.out.println(e.getMessage());
-        } catch (IOException e) {
-
-            Log.e(query, e.getMessage());
-            System.out.println(e.getMessage());
         }
 
     }
@@ -156,14 +157,17 @@ public class User implements IDataBase {
         Cursor info = query_engine_instance.execution_with_return(FETCH_USER_LOCALLY,
                 new String[] { this.getUsername() });
 
-        this.setEmail(info.getString(info.getColumnIndex("email")));
-        this.setPassword(info.getString(info.getColumnIndex("password")));
-        this.setUsertype(new UserType(info.getString(info.getColumnIndex("user_type_id")),
-                this.query_engine_instance));
-        this.setAuthquestion(info.getString(info.getColumnIndex("auth_question")));
-        this.setAuthanswer(info.getString(info.getColumnIndex("auth_answer")));
+        if (info.moveToFirst()) {
 
-        info.close();
+            this.setEmail(info.getString(info.getColumnIndex("email")));
+            this.password = info.getString(info.getColumnIndex("password"));
+            this.setUsertype(new UserType(info.getString(info.getColumnIndex("user_type_id")),
+                    this.query_engine_instance));
+            this.setAuthquestion(info.getString(info.getColumnIndex("auth_question")));
+            this.setAuthanswer(info.getString(info.getColumnIndex("auth_answer")));
+
+            info.close();
+        }
     }
 
     //Insert in the local db
@@ -174,10 +178,10 @@ public class User implements IDataBase {
 
         sqls.bindString(1, this.getUsername());
         sqls.bindString(2, this.getUsertype().getUserTypeName());
-        sqls.bindString(1, this.getPassword());
-        sqls.bindString(1, this.getEmail());
-        sqls.bindString(1, this.getAuthquestion());
-        sqls.bindString(1, this.getAuthanswer());
+        sqls.bindString(3, this.getPassword());
+        sqls.bindString(4, this.getEmail());
+        sqls.bindString(5, this.getAuthquestion());
+        sqls.bindString(6, this.getAuthanswer());
 
         if (sqls.executeInsert() < 0) {
             System.out.println("Cannot insert user data locally...");
@@ -188,6 +192,19 @@ public class User implements IDataBase {
 
     @Override
     public void update_data_locally() {
+
+        SQLiteStatement sqls = this.query_engine_instance.compile_statement(UPDATE_USER_LOCALLY);
+
+        sqls.bindString(1, this.getUsertype().getUserTypeName());
+        sqls.bindString(2, this.getPassword());
+        sqls.bindString(3, this.getEmail());
+        sqls.bindString(4, this.getAuthquestion());
+        sqls.bindString(5, this.getAuthanswer());
+        sqls.bindString(6, this.getUsername());
+
+        if (sqls.executeUpdateDelete() < 1) {
+            System.out.println("Cannot update the data locally...");
+        }
 
     }
 
@@ -229,6 +246,17 @@ public class User implements IDataBase {
 
     public boolean test_password(String password) {
         return BCrypt.checkpw(password, this.getPassword());
+    }
+
+    public boolean test_auth_answer(String answer) {
+        return BCrypt.checkpw(answer, this.getAuthanswer());
+    }
+
+    public boolean is_loaded_properly() {
+        return (this.email != null && this.usertype != null &&
+                this.authquestion != null &&
+                this.authanswer != null &&
+                this.password != null);
     }
 
 }

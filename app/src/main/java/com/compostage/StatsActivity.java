@@ -1,13 +1,16 @@
 package com.compostage;
 
+import android.app.ActionBar;
 import android.content.Context;
 
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
@@ -17,7 +20,6 @@ import android.view.MenuItem;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -45,22 +47,27 @@ public class StatsActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.navMenu:
+            case R.id.navLogout:
             {
                 Intent in = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(in);
                 this.finish();
-                break;
+                return true;
             }
             case R.id.navStats:
             {
                 Intent in = new Intent(getBaseContext(), StatsActivity.class);
                 startActivity(in);
                 this.finish();
-                break;
+                return true;
+            } case R.id.backToHome:
+            {
+                StatsActivity.this.finishAndRemoveTask();
+                return true;
             }
         }
         return super.onOptionsItemSelected(item);
@@ -229,6 +236,8 @@ public class StatsActivity extends AppCompatActivity {
             this.rBed = new ArrayList<>(bed);
 
         }
+
+
 
         @NonNull
         @Override

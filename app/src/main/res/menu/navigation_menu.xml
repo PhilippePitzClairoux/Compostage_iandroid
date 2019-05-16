@@ -7,13 +7,20 @@
         android:title="account"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/navMenu"
+    <item android:id="@+id/backToHome"
         android:icon="@drawable/ic_icon"
-        android:title="Menu"
+        android:title="Go back"
         app:showAsAction="never" />
 
     <item android:id="@+id/navStats"
         android:icon="@drawable/ic_icon"
         android:title="Stats"
         app:showAsAction="never" />
+
+    <item android:id="@+id/navLogout"
+        android:icon="@drawable/ic_icon"
+        android:title="Logout"
+        app:showAsAction="never" />
+
+
 </menu>

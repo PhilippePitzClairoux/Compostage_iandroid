@@ -9,8 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 import java.io.File;
+import java.io.Serializable;
 
-public class db_query_engine extends SQLiteOpenHelper{
+public class db_query_engine extends SQLiteOpenHelper implements Serializable {
 
     // Logcat tag
     private static final String LOG = db_query_engine.class.getName();

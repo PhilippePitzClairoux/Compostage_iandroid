@@ -1,6 +1,8 @@
 package com.compostage.Data;
 
-public class UserPermissions {
+import java.io.Serializable;
+
+public class UserPermissions implements Serializable {
 
     private String permissionName;
     private String permissionDescription;
