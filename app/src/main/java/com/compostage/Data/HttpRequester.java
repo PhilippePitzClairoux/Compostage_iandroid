@@ -3,7 +3,7 @@ package com.compostage.Data;
 import java.net.*;
 import java.io.*;
 
-public class HttpRequester {
+public class HttpRequester implements Serializable {
 
     private URL url;
 

@@ -1,5 +1,6 @@
 package com.compostage;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         createData.insert();
 
-        User tmp = new User("admin", query_engine);
-        tmp.fetch_data_locally();
-
-        System.out.println("Testing local db : " + tmp.getPassword());
-
         Button login = findViewById(R.id.login);
 
         findViewById(R.id.username).requestFocus();
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String username = ((EditText)findViewById(R.id.username)).getText().toString();
                 String password = ((EditText)findViewById(R.id.password)).getText().toString();
-                User user = new User(username, query_engine);
+                user = new User(username, query_engine);
 
                 String url = String.format(ServerQueries.GET_USER_INFO, username);
 
@@ -67,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
+                            loadDashboard();
 
                         } else {
 
@@ -85,8 +83,15 @@ public class MainActivity extends AppCompatActivity {
 
                     } catch (IOException e) {
 
-                        Toast.makeText(MainActivity.this, "Cannot reach the server, check network.",
-                                Toast.LENGTH_LONG).show();
+                        //if the connection fails, check locally
+                        user.fetch_data_locally();
+                        if (user.test_password(password)) {
+                            loadDashboard();
+                        } else {
+
+                            invalid_password();
+                            reset_password();
+                        }
 
                     } catch (InvalidServerQuery invalidServerQuery) {
                         invalidServerQuery.printStackTrace();
@@ -118,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.password).requestFocus();
         Toast.makeText(MainActivity.this, "Invalid password",
                 Toast.LENGTH_LONG).show();
+    }
+
+    private void loadDashboard() {
+        Intent dashboard = new Intent(this, Dashboard.class);
+        dashboard.putExtra("user", user);
+        this.startActivity(dashboard);
     }
 
     public void invalid_username() {

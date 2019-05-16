@@ -2,7 +2,9 @@ package com.compostage.Data;
 
 import org.json.*;
 
-public class JsonParser {
+import java.io.Serializable;
+
+public class JsonParser implements Serializable {
 
     private JSONObject toParse;
 

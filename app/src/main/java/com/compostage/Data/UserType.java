@@ -6,9 +6,10 @@ import android.database.sqlite.SQLiteStatement;
 import com.compostage.db_query_engine;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserType {
+public class UserType implements Serializable {
 
     private String userTypeName;
     private String userTypeDescription;
@@ -67,7 +68,8 @@ public class UserType {
 
         Cursor info = engine.execution_with_return(GET_DESCRIPTION, new String[] {this.getUserTypeName()} );
 
-        this.setUserTypeDescription(info.getString(info.getColumnIndex("user_type_description")));
+        if (info.moveToFirst())
+            this.setUserTypeDescription(info.getString(info.getColumnIndex("user_type_description")));
 
         info.close();
         info = engine.execution_with_return(GET_PERMISSIONS, new String[] {this.getUserTypeName()} );

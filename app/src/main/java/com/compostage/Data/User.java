@@ -4,6 +4,8 @@ package com.compostage.Data;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,12 +22,13 @@ import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class User implements IDataBase {
+public class User implements Serializable, IDataBase {
 
     private String username;
     private UserType usertype;
@@ -156,14 +159,17 @@ public class User implements IDataBase {
         Cursor info = query_engine_instance.execution_with_return(FETCH_USER_LOCALLY,
                 new String[] { this.getUsername() });
 
-        this.setEmail(info.getString(info.getColumnIndex("email")));
-        this.setPassword(info.getString(info.getColumnIndex("password")));
-        this.setUsertype(new UserType(info.getString(info.getColumnIndex("user_type_id")),
-                this.query_engine_instance));
-        this.setAuthquestion(info.getString(info.getColumnIndex("auth_question")));
-        this.setAuthanswer(info.getString(info.getColumnIndex("auth_answer")));
+        if (info.moveToFirst()) {
 
-        info.close();
+            this.setEmail(info.getString(info.getColumnIndex("email")));
+            this.password = info.getString(info.getColumnIndex("password"));
+            this.setUsertype(new UserType(info.getString(info.getColumnIndex("user_type_id")),
+                    this.query_engine_instance));
+            this.setAuthquestion(info.getString(info.getColumnIndex("auth_question")));
+            this.setAuthanswer(info.getString(info.getColumnIndex("auth_answer")));
+
+            info.close();
+        }
     }
 
     //Insert in the local db
@@ -228,6 +234,8 @@ public class User implements IDataBase {
     }
 
     public boolean test_password(String password) {
+        System.out.println("password : " + password);
+        System.out.println("Hash : " + this.getPassword());
         return BCrypt.checkpw(password, this.getPassword());
     }
 

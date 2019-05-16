@@ -1,6 +1,8 @@
 package com.compostage.Data;
 
-public class Bed {
+import java.io.Serializable;
+
+public class Bed implements Serializable {
     public Bed(){
         this.setName("");
     }
