@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "WELCOME!",
                                     Toast.LENGTH_LONG).show();
 
-
-
                         } else {
 
                             invalid_password();

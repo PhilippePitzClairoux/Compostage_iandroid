@@ -1,14 +1,18 @@
 package com.compostage.Data;
 
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+
 import android.util.Log;
 import android.widget.Toast;
 
 import com.compostage.Exceptions.InvalidServerQuery;
+
 import com.compostage.MainActivity;
 import com.compostage.ServerQueries;
 import com.compostage.db_query_engine;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 
 public class User implements IDataBase {
 
@@ -89,7 +94,6 @@ public class User implements IDataBase {
     public void setAuthanswer(String authanswer) {
         this.authanswer = authanswer;
     }
-
 
     @Override
     public void fetch_data() throws InvalidServerQuery {
@@ -162,6 +166,7 @@ public class User implements IDataBase {
         info.close();
     }
 
+    //Insert in the local db
     @Override
     public void insert_data_locally() {
 
@@ -195,7 +200,6 @@ public class User implements IDataBase {
         authanswer = (!authanswer.equals(this.authanswer) ? authanswer : "");
         JsonParser answer;
 
-
         String query = ServerQueries.getSyncUserInfoString(this.username, password,
                 email, authquestion, authanswer);
 
@@ -219,7 +223,6 @@ public class User implements IDataBase {
 
             Log.e(query, e.getMessage());
         }
-
         //if theres a major fuckup, return nothing (should basically never happen
         return "";
     }

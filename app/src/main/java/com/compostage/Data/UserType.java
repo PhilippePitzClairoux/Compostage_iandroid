@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.compostage.db_query_engine;
 
+
 import java.util.ArrayList;
 
 public class UserType {
@@ -13,9 +14,11 @@ public class UserType {
     private String userTypeDescription;
     private ArrayList<UserPermissions> userPermissions;
 
+
     private final static String GET_DESCRIPTION = "SELECT * FROM user_type WHERE user_type_name = ?";
     private final static String GET_PERMISSIONS = "SELECT * FROM ta_users_permissions INNER JOIN" +
             " permissions ON permissions.permission_name = ta_users_permissions.permission WHERE user_type = ?";
+
 
     public UserType(String userTypeName, String userTypeDescription) {
 

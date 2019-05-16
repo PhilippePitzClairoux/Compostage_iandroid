@@ -5,11 +5,11 @@ import com.compostage.db_query_engine;
 
 import java.security.NoSuchAlgorithmException;
 
+
 public interface IDataBase {
 
     //get data from db
     void fetch_data_locally();
-
     //insert data in the db
     void insert_data_locally();
 
@@ -21,6 +21,7 @@ public interface IDataBase {
 
 
     void update_data();
+
 
 
 }
